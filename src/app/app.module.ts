@@ -8,7 +8,11 @@ import { MyApp } from './app.component';
 import {FIREBASE_CONFIG} from './envroiment'
 import {AngularFireModule} from 'Angularfire2'
 import {AngularFireAuthModule} from 'angularfire2/auth'
-
+import {
+  AngularFireDatabase,
+  AngularFireDatabaseModule } from 'angularfire2/database';
+  import { AngularFirestoreModule } from 'angularfire2/firestore';
+ 
 @NgModule({
   declarations: [
     MyApp,
@@ -19,7 +23,9 @@ import {AngularFireAuthModule} from 'angularfire2/auth'
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,6 +34,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth'
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFireDatabase,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

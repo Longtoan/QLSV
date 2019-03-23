@@ -6,5 +6,10 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-list *ngFor="let user of profiledata | async">
+    LastName <ion-item >
+     {{user.lastname}}
+    </ion-item>
+    UserName <ion-item>{{user.username}}</ion-item>
+  </ion-list>
 </ion-content>
