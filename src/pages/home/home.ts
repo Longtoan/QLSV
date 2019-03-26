@@ -6,9 +6,8 @@ import {
   ToastController
 } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase, AngularFireObject} from "angularfire2/database";
+import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
 import { Profile } from "../../../models/profile";
-
 
 @IonicPage()
 @Component({
@@ -16,17 +15,14 @@ import { Profile } from "../../../models/profile";
   templateUrl: "home.html"
 })
 export class HomePage {
-   profiledata: AngularFireObject<Profile[]>;
-  
+  profiledata: AngularFireObject<Profile[]>;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private toast: ToastController,
     private afAth: AngularFireAuth,
-    private afDatabse: AngularFireDatabase,
-  ) { 
-    
-  }
+    private afDatabse: AngularFireDatabase
+  ) {}
 
   ionViewWillLoad() {
     this.afAth.authState.subscribe(data => {
@@ -35,9 +31,15 @@ export class HomePage {
           .create({
             message: `Wellcome to ${data.email}`,
             duration: 3000
-          }).present();
-          this.profiledata = this.afDatabse.object(`details/profile${data.uid}`)
-          console.log(this.profiledata)  
+          })
+          .present();
+
+        //load user + uid trên firebase
+        this.profiledata = this.afDatabse.object(
+          `details/profile${data[0].uid}`
+        );
+
+        console.log(this.profiledata);
       } else {
         this.toast
           .create({
