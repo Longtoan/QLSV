@@ -6,12 +6,32 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list *ngFor="let i of profiledata | async">
-    Họ Và Tên <ion-item >{{i.hovaten}}  </ion-item>
-    Tình Trạng <ion-item> {{i.status}}</ion-item>
-    MSSV <ion-item> {{i.MSSV}}</ion-item>
-    Ngày Sinh<ion-item> {{i.date}}</ion-item>
-    Bậc Đào Tạo<ion-item> {{i.loaihinh}}</ion-item>
-    Khoa  <ion-item> {{i.khoa}}</ion-item>
+    <ion-list>
+    <ion-thumbnail item-start>
+        <img class="icon" src="../../assets/imgs/user_icon.png" alt="" />
+    </ion-thumbnail>
+    <ion-item>Họ Và Tên:</ion-item>
+    <ion-item>MSSV :</ion-item>
+    <ion-item>Lớp :</ion-item>
+    <ion-item>Tình Trạng :</ion-item>
+    
   </ion-list>
+  <button ion-button full (click)="thongtin()"> Thông Tin Cá Nhân </button>
+  <ion-list *ngIf="!hide">
+      <ion-item>Khóa</ion-item>
+      <ion-item>Bậc Đào Tạo</ion-item>
+      <ion-item>Ngành</ion-item>
+      <ion-item>Khoa</ion-item>
+  </ion-list>
+  <ion-row>
+      <ion-col align-self-start>
+        <button ion-button shape="round" (click)="thongtin()" > Kết quả học tập</button>
+      </ion-col>
+      <ion-col align-self-center>
+          <button ion-button shape="round">Đổi mật khẩu</button>
+      </ion-col>
+      <ion-col align-self-end>
+          <button ion-button shape="round" (click)="logout()"> Đăng xuất</button>
+      </ion-col>
+    </ion-row>
 </ion-content>

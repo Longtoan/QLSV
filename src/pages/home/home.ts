@@ -6,9 +6,9 @@ import {
   ToastController
 } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase, AngularFireObject } from "angularfire2/database";
+import { AngularFireDatabase,AngularFireObject  } from "angularfire2/database";
 import { Profile } from "../../../models/profile";
-
+import {KetquaPage} from "../ketqua/ketqua"
 @IonicPage()
 @Component({
   selector: "page-home",
@@ -16,14 +16,14 @@ import { Profile } from "../../../models/profile";
 })
 export class HomePage {
   profiledata: AngularFireObject<Profile[]>;
-  constructor(
-    public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private toast: ToastController,
     private afAth: AngularFireAuth,
     private afDatabse: AngularFireDatabase
-  ) {}
-
+  ) {
+   
+  }
   ionViewWillLoad() {
     this.afAth.authState.subscribe(data => {
       if (data && data.email && data.uid) {
@@ -35,10 +35,9 @@ export class HomePage {
           .present();
 
         //load user + uid trên firebase
-        this.profiledata = this.afDatabse.object(
-          `details/profile${data[0].uid}`
-        );
-
+         this.profiledata = this.afDatabse.object(
+           `details/profile${data[0].uid}`)
+          
         console.log(this.profiledata);
       } else {
         this.toast
@@ -49,5 +48,27 @@ export class HomePage {
           .present();
       }
     });
+  }
+  ketqua(){
+    this.navCtrl.push('KetquaPage')
+  }
+  logout(){
+    const log = this.afAth.auth.signOut();
+    if(log){
+      this.navCtrl.setRoot('LoginPage')
+    }
+  }
+  hide  = false; 
+  thongtin(){
+    if(!this.hide){
+      this.hide =true 
+    }
+    else{
+      this.hide = false
+    }
+     
+    
+    
+    
   }
 }
