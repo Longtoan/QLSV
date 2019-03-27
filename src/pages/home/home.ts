@@ -6,21 +6,22 @@ import {
   ToastController
 } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
-import { AngularFireDatabase,AngularFireObject  } from "angularfire2/database";
-import { Profile } from "../../../models/profile";
+import { AngularFireDatabase} from "angularfire2/database";
 import {KetquaPage} from "../ketqua/ketqua"
+import { snapShotToArray } from "../../app/envroiment";
 @IonicPage()
 @Component({
   selector: "page-home",
   templateUrl: "home.html"
 })
 export class HomePage {
-  profiledata: AngularFireObject<Profile[]>;
+  
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private toast: ToastController,
     private afAth: AngularFireAuth,
-    private afDatabse: AngularFireDatabase
+    private afDatabse: AngularFireDatabase,
+    
   ) {
    
   }
@@ -35,10 +36,12 @@ export class HomePage {
           .present();
 
         //load user + uid trên firebase
-         this.profiledata = this.afDatabse.object(
-           `details/profile${data[0].uid}`)
+         const profile = this.afDatabse.database.ref(
+           `details/profile/`).orderByKey().equalTo(data.uid).on('value',resp =>{
+             console.log(snapShotToArray(resp))
+           })
           
-        console.log(this.profiledata);
+        console.log(profile);
       } else {
         this.toast
           .create({
@@ -49,16 +52,20 @@ export class HomePage {
       }
     });
   }
+
   ketqua(){
-    this.navCtrl.push('KetquaPage')
+    this.navCtrl.push(KetquaPage);
   }
+  // đăng xuất
   logout(){
     const log = this.afAth.auth.signOut();
     if(log){
       this.navCtrl.setRoot('LoginPage')
     }
   }
+   // hide and show 
   hide  = false; 
+ 
   thongtin(){
     if(!this.hide){
       this.hide =true 
@@ -66,9 +73,6 @@ export class HomePage {
     else{
       this.hide = false
     }
-     
-    
-    
-    
   }
+
 }
