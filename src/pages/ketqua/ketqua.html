@@ -1,20 +1,50 @@
 
 <ion-header>
   <ion-navbar>
+    <button (click)="trove()">
+    <ion-icon name="arrow-round-back"></ion-icon></button>
     <ion-title>Kết Quả Học Tập</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <ion-row>
-        <ion-col align-self-start>
-          Mã Môn
-        </ion-col>
-        <ion-col align-self-  center>
-          Môn Học
-        </ion-col>
         <ion-col align-self-end>
-          Điểm
+            <button ion-button  full shape="round">Chi Tiết</button>
         </ion-col>
-      </ion-row>
+          <!-- <ion-content *ngIf="!showDivContent" >
+              <div *ngFor="let i of ketqua" >
+              <div class="row header" >
+                <div class="col">STT</div>
+                <div class="col">Mã Môn</div>
+                <div class="col">Môn Học</div>
+                <div class="col">DVHT</div>
+                <div class="col">Điểm Trung Bình</div>
+              </div>
+              <div class="row" >
+                <div class="col">1</div>
+                <div class="col">0123</div>
+                <div class="col">Anh Văn </div>
+                <div class="col">2.5</div>
+                <div class="col">{{i.anhvan}}</div>
+              </div>
+              </div>
+          </ion-content> -->
+
+          <ion-col align-self-start>
+              <button ion-button  full shape="round">Tổng Quan</button>
+            </ion-col>
+            </ion-row>
+            <div class="border" *ngFor="let i of tongquan">
+          <p> Sinh Viên Năm Thứ:  {{i.nam}}</p>
+          <p>Niên khóa: {{i.nienkhoa}}</p> 
+          <p> Thời Gian Đào Tạo: {{i.thoigian}}</p>
+          <p> GVCN {{i.gvcn}}</p>
+          <p> TBC Tích lũy hệ 4:{{i.tbc4}} </p>
+          <p> TBC tích lũy hệ 10: {{i.tbc10}}  </p>
+          <p> DVHT đã đăng ký: {{i.dvhtdk}}</p>
+          <p> DVHT tích lũy: {{i.dvhttl}} </p>
+
+        </div>
+   
 </ion-content>

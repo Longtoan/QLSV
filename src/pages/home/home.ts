@@ -3,11 +3,12 @@ import {
   IonicPage,
   NavController,
   NavParams,
-  ToastController
+  ToastController,
+  ModalController
 } from "ionic-angular";
 import { AngularFireAuth } from "angularfire2/auth";
 import { AngularFireDatabase } from "angularfire2/database";
-import { KetquaPage } from "../ketqua/ketqua";
+
 import { snapShotToArray } from "../../app/envroiment";
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public ModalCtrl: ModalController,
     private toast: ToastController,
     private afAth: AngularFireAuth,
     private afDatabse: AngularFireDatabase
@@ -57,7 +59,8 @@ export class HomePage {
   }
 
   ketqua() {
-    this.navCtrl.push(KetquaPage);
+    let modal =this.ModalCtrl.create("KetquaPage");
+    modal.present()
   }
   // đăng xuất
   logout() {
